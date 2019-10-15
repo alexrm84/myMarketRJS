@@ -29,8 +29,25 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "product")
     private List<ProductImage> images;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "products_categories",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private List<Category> categories;
+
     public Product(String title, BigDecimal price) {
         this.title = title;
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", images=" + images +
+                ", categories=" + categories +
+                '}';
     }
 }

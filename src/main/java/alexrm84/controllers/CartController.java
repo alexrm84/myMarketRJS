@@ -54,7 +54,7 @@ public class CartController {
     }
 
     @GetMapping("/reduce")
-    public String reduceProductFromCart(@RequestParam("id") Long id, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String reduceProductFromCart(@RequestParam("id") Long id) {
         cart.reduceProduct(productService.findById(id).get());
         return "redirect:/cart";
     }

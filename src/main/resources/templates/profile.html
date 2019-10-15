@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8"/>
+
+    <title>Profile</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div th:replace="~{navigation :: navigation(profile)}" />
+
+        <h2 th:text="#{profile}" />
+        <table class="table table-hover">
+            <tbody>
+            <tr>
+                <td th:text="Имя"/>
+                <td th:text="Фамилия"/>
+                <td th:text="Телефон"/>
+                <td th:text="E-mail"/>
+            </tr>
+            <tr>
+                <td th:text="${user.firstName}"/>
+                <td th:text="${user.lastName}"/>
+                <td th:text="${user.phone}"/>
+                <td th:text="${user.email}"/>
+            </tr>
+            </tbody>
+        </table>
+
+        <a class="btn btn-primary" style="margin-top: 10px;" th:href="@{/profile/update}"  th:text="#{profile.update}" />
+        <a class="btn btn-primary" style="margin-top: 10px;" th:href="@{/profile/newPass}"  th:text="#{profile.newPass}" />
+        <br>
+
+        <form method="get" th:action="@{/profile/history}">
+            <div class="form-group" style="width: 300px;">
+                <label for="dateFrom" th:text="#{enterDateFrom}"></label>
+                <input th:value="${dateFrom != null} ? ${dateFrom}" id="dateFrom" type="date" class="form-control" th:name="dateFrom">
+            </div>
+            <div class="form-group" style="width: 300px;">
+                <label for="dateBefore" th:text="#{enterDateBefore}"></label>
+                <input th:value="${dateBefore != null} ? ${dateBefore}" id="dateBefore" type="date" class="form-control" th:name="dateBefore">
+            </div>
+            <button type="submit" class="btn btn-info" style="margin-top: 10px;" th:text="#{profile.ordersHistory}" />
+        </form>
+
+        <h2 th:if="${orders!=null && orders.size()>0}"  style="margin-top: 20px;" th:text="#{ordersHistory}"/>
+        <table th:if="${orders!=null && orders.size()>0}"  class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th th:text="#{ordersHistory.columnNames.price}"></th>
+                <th th:text="#{ordersHistory.columnNames.phone}"></th>
+                <th th:text="#{ordersHistory.columnNames.address}"></th>
+                <th th:text="#{ordersHistory.columnNames.status}"></th>
+                <th th:text="#{ordersHistory.columnNames.createdAt}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.id}"/>
+                <td th:text="${order.price}"/>
+                <td th:text="${order.phone}"/>
+                <td th:text="${order.address}"/>
+                <td th:text="${order.status}"/>
+                <td th:text="${order.createdAt}"/>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/shop")
@@ -32,7 +35,8 @@ public class ShopController {
             Model model,
             HttpServletRequest request,
             HttpServletResponse response,
-            @CookieValue(value = "pageSize", required = false) Integer pageSize){
+            @CookieValue(value = "pageSize", required = false) Integer pageSize,
+            @RequestParam(value = "viewsHistory", required = false) List<Product> viewsHistory){
         ProductsFilter productsFilter = new ProductsFilter(request);
         if (currentPage == null || currentPage < 1) {
             currentPage = 1;
@@ -40,6 +44,9 @@ public class ShopController {
         if (pageSize==null){
             pageSize = 10;
             response.addCookie(new Cookie("pageSize", String.valueOf(pageSize)));
+        }
+        if (viewsHistory!=null){
+            model.addAttribute("viewsHistory", viewsHistory);
         }
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("filters", productsFilter.getFiltersString());
@@ -64,5 +71,21 @@ public class ShopController {
     public String saveModifiedProduct(@ModelAttribute(name = "product") Product product) {
         productService.save(product);
         return "redirect:/products";
+    }
+
+    @GetMapping("/details")
+    public String showProductDetails(Model model, @RequestParam("id") Long id,
+                                     HttpServletResponse response,
+//                                     @CookieValue(value = "viewsHistory", required = false) List<Product> viewsHistory,
+                                     @RequestParam(value = "viewsHistory", required = false) List<Product> viewsHistory){
+        Product product = productService.findById(id).get();
+        model.addAttribute("product", product);
+        if (viewsHistory==null){
+            viewsHistory = new ArrayList<>();
+        }
+        viewsHistory.add(product);
+//        response.addCookie(new Cookie("viewsHistory", String.valueOf(viewsHistory)));
+        model.addAttribute("viewsHistory", viewsHistory);
+        return "productDetails";
     }
 }

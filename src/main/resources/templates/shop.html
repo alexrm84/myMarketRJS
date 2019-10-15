@@ -25,6 +25,21 @@
         <div th:replace="~{navigation :: navigation(Shop)}" />
         <h2 th:text="#{filters}"/>
         <form th:action="@{/shop}" method="get">
+            <div class="dropdown dropright">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="category" th:text="#{filters.category}" />
+                <div class="dropdown-menu" aria-labelledby="category">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="category.electronics" th:text="#{filters.category.electronics}" />
+                    <div class="dropdown-menu" aria-labelledby="category.electronics">
+                        <div class="form-check">
+                                <input type="checkbox" class="form-check-input"  th:name="Headphones" value="on" th:checked="${param.Headphones != null}" th:text="#{filters.category.electronics.headphones}" />
+                        </div>
+                        <div class="form-check">
+                                <input type="checkbox" class="form-check-input"  th:name="Smartphones" value="on" th:checked="${param.Smartphones != null}" th:text="#{filters.category.electronics.phones.smartphones}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
             <input th:value="${param.word != null} ? ${param.word}" class="form-control" th:name="word" type="text" th:placeholder="#{filters.word}">
             <input th:value="${param.minPrice != null} ? ${param.minPrice}" class="form-control" th:name="minPrice" th:type="number" th:placeholder="#{filters.price.min}">
             <input th:value="${param.maxPrice != null} ? ${param.maxPrice}" class="form-control" th:name="maxPrice" th:type="number" th:placeholder="#{filters.price.max}">
@@ -52,6 +67,7 @@
                 <td th:text="${p.title}"/>
                 <td th:text="${p.price}"/>
                 <td>
+                    <a class="btn btn-primary" th:href="@{'/shop/details?id=' + ${p.id}}"  th:text="#{products.columnNames.actions.details}" target="_blank" />
                     <a class="btn btn-primary" th:href="@{'/cart/add?id=' + ${p.id}}"  th:text="#{products.columnNames.actions.addToCart}" />
                 </td>
             </tr>
@@ -71,6 +87,30 @@
                 </li>
             </ul>
         </nav>
+
+
+
+        <h2 th:if="${viewsHistory==null && viewsHistory>0}" th:text="#{products.viewsHistory}"/>
+        <table th:if="${viewsHistory==null && viewsHistory>0}" class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th></th>
+                <th th:text="#{products.columnNames.title}"></th>
+                <th th:text="#{products.columnNames.price}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="p : ${viewsHistory}">
+                <td>
+                    <img class="table_image" th:src="@{'/images/products/' + ${p.id} + '/img_1.jpg'}">
+                </td>
+                <td th:text="${p.title}"/>
+                <td th:text="${p.price}"/>
+            </tr>
+            </tbody>
+        </table>
+
+
 
     </div>
 </body>

@@ -5,9 +5,12 @@ import alexrm84.entities.User;
 import alexrm84.repositories.OrderRepository;
 import alexrm84.utils.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -32,5 +35,17 @@ public class OrderService {
         cart.clear();
         order.setStatus(Order.Status.CREATED);
         return orderRepository.save(order);
+    }
+
+    public List<Order> findAllByUser(Long userId){
+        return orderRepository.findAllByUser_id(userId);
+    }
+
+    public List<Order> findAllByFiltering(Specification<Order> specification) {
+        return orderRepository.findAll(specification);
+    }
+
+    public List<Order> findAllByFiltering(Specification<Order> specification, Sort sort) {
+        return orderRepository.findAll(specification, sort);
     }
 }

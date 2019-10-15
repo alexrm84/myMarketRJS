@@ -1,8 +1,14 @@
 package alexrm84.repositories.specifications;
 
 
+import alexrm84.entities.Category;
 import alexrm84.entities.Product;
+import alexrm84.entities.User;
 import org.springframework.data.jpa.domain.Specification;
+
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.ListJoin;
+import java.util.List;
 
 public class ProductSpecifications {
     public static Specification<Product> titleContains(String word) {
@@ -18,5 +24,12 @@ public class ProductSpecifications {
     public static Specification<Product> priceLesserThanOrEq(double value) {
         return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) ->
                 criteriaBuilder.lessThanOrEqualTo(root.get("price"), value);
+    }
+
+    public static Specification<Product> categoriesContains(String word) {
+        return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) -> {
+            Join<Product, Category> categories = root.join("categories");
+            return criteriaBuilder.equal(categories.get("title"), word);
+        };
     }
 }

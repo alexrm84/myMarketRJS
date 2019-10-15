@@ -30,7 +30,10 @@
                     th:classappend="${activeTab == 'AdminDashboard' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{/admin}">Admin Dashboard</a>
                 </li>
-
+                <li sec:authorize="hasRole('CUSTOMER')" class="nav-item"
+                    th:classappend="${activeTab == 'profile' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/profile}">Личный кабинет</a>
+                </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item">
                     <form th:action="@{/logout}" method="POST">
                         <button class="btn btn-outline-secondary" type="submit" th:text="#{nav.logout}"></button>
