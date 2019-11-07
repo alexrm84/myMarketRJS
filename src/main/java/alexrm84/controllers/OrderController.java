@@ -11,12 +11,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.management.modelmbean.ModelMBeanOperationInfo;
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/orders")
+//@SessionAttributes(value = "order")
 public class OrderController {
 
     private OrderService orderService;
@@ -49,7 +53,7 @@ public class OrderController {
     }
 
     @GetMapping("/confirmOrder")
-    public  String confirmOrder(@RequestParam Map<String, String> params, Principal principal){
+    public  String confirmOrder(@RequestParam Map<String, String> params, Principal principal, HttpSession session){
         User user;
         if (principal != null){
             user = userService.findByPhone(principal.getName());
@@ -59,6 +63,10 @@ public class OrderController {
         Order order = orderService.createOrder(user, params);
         if (user.getEmail() != null) {
             mailService.sendOrderMail(order);
+        }
+        if (params.get("paymentType").equals("paypal")){
+            session.setAttribute("order", order);
+            return "redirect:/paypal/buy";
         }
         return "redirect:/shop";
     }

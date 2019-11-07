@@ -2,10 +2,8 @@ package alexrm84.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.LifecycleState;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import sun.print.PSPrinterJob;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -55,7 +53,7 @@ public class Order implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderItem> items;
 
     public Order(User user, String phone, String address) {
