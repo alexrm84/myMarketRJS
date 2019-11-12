@@ -61,9 +61,9 @@ public class OrderController {
             user = userService.save(params);
         }
         Order order = orderService.createOrder(user, params);
-        if (user.getEmail() != null) {
-            mailService.sendOrderMail(order);
-        }
+//        if (user.getEmail() != null) {
+//            mailService.sendOrderMail(order);
+//        }
         if (params.get("paymentType").equals("paypal")){
             session.setAttribute("order", order);
             return "redirect:/paypal/buy";

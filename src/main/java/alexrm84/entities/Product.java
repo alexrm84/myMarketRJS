@@ -26,7 +26,7 @@ public class Product implements Serializable {
     @Column(name = "price")
     private BigDecimal price;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<ProductImage> images;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -36,6 +36,12 @@ public class Product implements Serializable {
     private List<Category> categories;
 
     public Product(String title, BigDecimal price) {
+        this.title = title;
+        this.price = price;
+    }
+
+    public Product(Long id, String title, BigDecimal price) {
+        this.id = id;
         this.title = title;
         this.price = price;
     }

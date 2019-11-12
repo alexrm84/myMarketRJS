@@ -5,7 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-    <title>September Market</title>
+    <title>MyMarket</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -51,6 +51,14 @@
                         </div>
                     </form>
                 </li>
+
+                <li sec:authorize="isAnonymous()" class="nav-item">
+                    <div class="input-group-prepend">
+                        Войти через:
+                        <a href="https://oauth.vk.com/authorize?client_id=7199458&display=page&redirect_uri=http://localhost:8190/app/vk/callback&scope=friends&response_type=code&v=5.103" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">ВК</a>
+                    </div>
+                </li>
+
                 <div class="dropdown" style="margin-left: 10px;">
                     <button class="btn btn-outline-secondary dropdown-toggle" th:text="#{nav.lang}" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

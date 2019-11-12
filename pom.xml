@@ -13,10 +13,12 @@
 	<artifactId>myMarket</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>myMarket</name>
+	<packaging>jar</packaging>
 	<description>My market demo project</description>
 
 	<properties>
 		<java.version>1.8</java.version>
+<!--		<full-artifact-name>target/${project.artifactId}-${project.version}.jar</full-artifact-name>-->
 	</properties>
 
 	<dependencies>
@@ -68,12 +70,36 @@
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
+		<!-- Testing Dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+			<version>1.4.194</version>
+		</dependency>
 
+		<!-- SOAP -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web-services</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
+		</dependency>
+
+		<!-- PayPal -->
 		<dependency>
 			<groupId>com.paypal.sdk</groupId>
 			<artifactId>rest-api-sdk</artifactId>
@@ -93,6 +119,32 @@
 				<version>6.0.2</version>
 				<configuration>
 					<configFiles>src/main/resources/flyway.conf</configFiles>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>xjc</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<configuration>
+					<schemaDirectory>
+						${project.basedir}/src/main/resources/soap/
+					</schemaDirectory>
+					<outputDirectory>
+						${project.basedir}/src/main/java
+					</outputDirectory>
+					<clearOutputDir>
+						false
+					</clearOutputDir>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/products")
+@RequestMapping("/api/v1/products")
 public class ProductRestController {
 
     private ProductService productService;
@@ -20,7 +20,7 @@ public class ProductRestController {
         this.productService = productService;
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public List<Product> findAll(){
         return productService.findAll();
     }
@@ -30,7 +30,7 @@ public class ProductRestController {
         return productService.findById(id).orElseThrow(()-> new ProductException("Product with id: " + id + " not found"));
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     public Product addProduct(@RequestBody Product product){
         if (product.getId()!=null){
@@ -39,7 +39,7 @@ public class ProductRestController {
         return productService.save(product);
     }
 
-    @PutMapping("/")
+    @PutMapping("")
     public Product updateProduct(@RequestBody Product newProduct){
         return productService.findById(newProduct.getId())
                 .map(product -> { return productService.save(newProduct);})

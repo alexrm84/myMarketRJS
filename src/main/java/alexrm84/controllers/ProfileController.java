@@ -10,6 +10,7 @@ import alexrm84.utils.OrdersFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +42,7 @@ public class ProfileController {
     @GetMapping("")
     public String showProfile(Model model, Principal principal){
         model.addAttribute("user", userService.findByPhone(principal.getName()));
+        User user = userService.findByPhone(principal.getName());
         return "profile";
     }
 

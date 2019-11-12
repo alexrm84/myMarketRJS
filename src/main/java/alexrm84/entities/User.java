@@ -44,18 +44,4 @@ public class User implements Serializable {
                 inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
 
-    public User(String phone, String password, String email, String firstName, String lastName, Collection<Role> roles) {
-        this.phone = phone;
-        this.password = password;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.roles = roles;
-    }
-
-    public User(String phone, String firstName, Collection<Role> roles) {
-        this.phone = phone;
-        this.firstName = firstName;
-        this.roles = roles;
-    }
 }
