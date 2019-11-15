@@ -26,10 +26,16 @@ public class ProductSpecifications {
                 criteriaBuilder.lessThanOrEqualTo(root.get("price"), value);
     }
 
-    public static Specification<Product> categoriesContains(String word) {
+    public static Specification<Product> categoryId(Long id) {
         return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) -> {
-            Join<Product, Category> categories = root.join("categories");
-            return criteriaBuilder.equal(categories.get("title"), word);
+            return criteriaBuilder.equal(root.get("category").get("id"), id);
         };
     }
+
+//    public static Specification<Product> categoriesContains(String word) {
+//        return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) -> {
+//            Join<Product, Category> categories = root.join("categories");
+//            return criteriaBuilder.equal(categories.get("title"), word);
+//        };
+//    }
 }

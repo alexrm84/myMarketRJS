@@ -1,5 +1,6 @@
 package alexrm84.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -27,13 +28,12 @@ public class Product implements Serializable {
     private BigDecimal price;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<ProductImage> images;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "products_categories",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private List<Category> categories;
+    @ManyToOne()
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     public Product(String title, BigDecimal price) {
         this.title = title;
@@ -53,7 +53,7 @@ public class Product implements Serializable {
                 ", title='" + title + '\'' +
                 ", price=" + price +
                 ", images=" + images +
-                ", categories=" + categories +
+                ", category=" + category +
                 '}';
     }
 }

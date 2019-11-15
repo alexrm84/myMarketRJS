@@ -54,4 +54,8 @@ public class ProductService {
     public Page<Product> findAllByPagingAndFiltering(Specification<Product> specification, Pageable pageable) {
         return productRepository.findAll(specification, pageable);
     }
+
+    public List<Product> findAllById(Iterable<Long> iterable) {
+        return productRepository.findAllById(iterable);
+    }
 }

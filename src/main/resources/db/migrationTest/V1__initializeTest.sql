@@ -39,18 +39,31 @@ VALUES
 (1, 2),
 (1, 3);
 
+DROP TABLE IF EXISTS categories;
+CREATE TABLE categories (
+    id bigserial,
+    title varchar(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO categories (title) VALUES
+('phones'),
+('headphones');
+
 DROP TABLE IF EXISTS products;
 CREATE TABLE products (
     id bigserial,
     title varchar(255) NOT NULL,
     price numeric(8,2) NOT NULL,
-    PRIMARY KEY (id)
+    category_id bigint NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (category_id) REFERENCES categories (id)
 );
 
-INSERT INTO products (title, price) VALUES
-('Смартфон Samsung Galaxy A50', 15800.0),
-('Смартфон Samsung Galaxy A10', 8600.0),
-('Смартфон Samsung Galaxy A30', 14800.0);
+INSERT INTO products (title, price, category_id) VALUES
+('Смартфон Samsung Galaxy A50', 15800.0, 1),
+('Смартфон Samsung Galaxy A10', 8600.0, 1),
+('Смартфон Samsung Galaxy A30', 14800.0, 1);
 
 
 DROP TABLE IF EXISTS categories;

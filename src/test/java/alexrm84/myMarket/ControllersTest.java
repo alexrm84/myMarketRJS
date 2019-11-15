@@ -36,5 +36,4 @@ public class ControllersTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Samsung Galaxy A50")));
     }
-
 }

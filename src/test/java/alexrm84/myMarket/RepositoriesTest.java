@@ -25,7 +25,6 @@ public class RepositoriesTest {
         newUser.setFirstName("sdfsdfsd");
         entityManager.persist(newUser);
         entityManager.flush();
-
         User user = userRepository.findOneByPhone("1231231231");
         System.out.println(user);
     }

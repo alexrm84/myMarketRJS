@@ -24,7 +24,7 @@
                     <a class="nav-link" th:href="@{/shop}" th:text="#{nav.shop}" />
                 </li>
                 <li class="nav-item" th:classappend="${activeTab == 'Cart' ? 'active' : ''}">
-                    <a class="nav-link" th:href="@{/cart}" th:text="#{nav.cart}" />
+                    <a id="navLinkCart" class="nav-link" th:href="@{/cart}" th:text="#{nav.cart}" />
                 </li>
                 <li sec:authorize="hasRole('ADMIN')" class="nav-item"
                     th:classappend="${activeTab == 'AdminDashboard' ? 'active' : ''}">
@@ -32,22 +32,22 @@
                 </li>
                 <li sec:authorize="hasRole('CUSTOMER')" class="nav-item"
                     th:classappend="${activeTab == 'profile' ? 'active' : ''}">
-                    <a class="nav-link" th:href="@{/profile}">Личный кабинет</a>
+                    <a id="navLinkProfile" class="nav-link" th:href="@{/profile}">Личный кабинет</a>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item">
-                    <form th:action="@{/logout}" method="POST">
+                    <form id="navButtonLogout" th:action="@{/logout}" method="POST">
                         <button class="btn btn-outline-secondary" type="submit" th:text="#{nav.logout}"></button>
                     </form>
                 </li>
                 <li sec:authorize="isAnonymous()" class="nav-item">
                     <form class="align-middle" th:action="@{/authenticateTheUser}" method="POST">
                         <div class="input-group-prepend">
-                            <input class="form-control" type="text" th:placeholder="#{nav.login.field}" name="username"
+                            <input id="navFieldLogin" class="form-control" type="text" th:placeholder="#{nav.login.field}" name="username"
                                    aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
-                            <input class="form-control" type="text" th:placeholder="#{nav.password}" name="password"
+                            <input id="navFieldPass" class="form-control" type="text" th:placeholder="#{nav.password}" name="password"
                                    aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
-                            <button class="btn btn-outline-warning btn-sm" style="margin-left: 10px" type="submit" th:text="#{nav.login.submit}"></button>
-                            <a th:href="@{/register/}" class="btn btn-outline-warning" style="margin-left: 10px;" th:text="#{nav.register}"></a>
+                            <button id="navButtonLogin" class="btn btn-outline-warning btn-sm" style="margin-left: 10px" type="submit" th:text="#{nav.login.submit}"></button>
+                            <a id="navButtonReg" th:href="@{/register/}" class="btn btn-outline-warning" style="margin-left: 10px;" th:text="#{nav.register}"></a>
                         </div>
                     </form>
                 </li>

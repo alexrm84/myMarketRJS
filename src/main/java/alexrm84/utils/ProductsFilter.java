@@ -37,20 +37,9 @@ public class ProductsFilter {
             filtersString.append("&maxPrice=" + request.getParameter("maxPrice"));
         }
 
-
-
-        if (request.getParameter("Headphones") != null) {
-            specification = specification.and(ProductSpecifications.categoriesContains("Headphones"));
-//            specification = specification.or(ProductSpecifications.categoriesContains("Headphones"));
-            filtersString.append("&Headphones=on");
+        if (request.getParameter("catId") != null && !request.getParameter("catId").isEmpty()) {
+            specification = specification.and(ProductSpecifications.categoryId(Long.valueOf(request.getParameter("catId"))));
+            filtersString.append("&catId=" + request.getParameter("catId"));
         }
-
-        if (request.getParameter("Smartphones") != null) {
-            specification = specification.and(ProductSpecifications.categoriesContains("Smartphones"));
-//            specification = specification.or(ProductSpecifications.categoriesContains("Smartphones"));
-            filtersString.append("&Smartphones=on");
-        }
-
-
     }
 }
