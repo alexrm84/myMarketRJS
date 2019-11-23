@@ -4,6 +4,7 @@ import alexrm84.entities.Product;
 import alexrm84.services.CategoryService;
 import alexrm84.services.ProductService;
 import alexrm84.utils.ProductsFilter;
+import alexrm84.utils.ViewHistory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -54,9 +55,7 @@ public class ShopController {
             response.addCookie(new Cookie("pageSize", String.valueOf(pageSize)));
         }
         if (viewsHistory!=null){
-            List<Long> viewHistoryIds = Arrays.stream(viewsHistory.split("z"))
-                    .map(Long::valueOf).collect(Collectors.toList());
-            List<Product> viewHistoryProducts = productService.findAllById(viewHistoryIds);
+            List<Product> viewHistoryProducts = productService.findAllById(ViewHistory.getIDsList(viewsHistory));
             model.addAttribute("viewHistoryProducts", viewHistoryProducts);
         }
         model.addAttribute("currentPage", currentPage);
@@ -91,12 +90,7 @@ public class ShopController {
                                      @CookieValue(value = "viewsHistory", required = false) String viewsHistory){
         Product product = productService.findById(id).get();
         model.addAttribute("product", product);
-        if (viewsHistory==null){
-            viewsHistory = String.valueOf(product.getId());
-        } else {
-            viewsHistory = viewsHistory + "z" + product.getId();
-        }
-        response.addCookie(new Cookie("viewsHistory", viewsHistory));
+        response.addCookie(new Cookie("viewsHistory", ViewHistory.add(viewsHistory, product.getId())));
         return "productDetails";
     }
 }

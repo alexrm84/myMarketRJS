@@ -59,11 +59,10 @@
                 <td>
                     <img class="table_image" th:src="@{'/images/products/' + ${p.id} + '/img_1.jpg'}">
                 </td>
-                <td th:text="${p.title}"/>
+                <td><a th:href="@{'/shop/details?id=' + ${p.id}}" target="_blank" th:text="${p.title}" /></td>
                 <td th:text="${p.price}"/>
                 <td>
-                    <a class="btn btn-primary" th:href="@{'/shop/details?id=' + ${p.id}}"  th:text="#{products.columnNames.actions.details}" target="_blank" />
-                    <a th:id="'shopBtnAddToCart' + ${p.id}" class="btn btn-primary" th:href="@{'/cart/add?id=' + ${p.id}}"  th:text="#{products.columnNames.actions.addToCart}" />
+                    <a th:id="'shopBtnAddToCart' + ${p.id}" class="btn btn-primary" th:href="@{'/cart/add?id=' + ${p.id}}"  th:text="#{products.actions.addToCart}" />
                 </td>
             </tr>
             </tbody>
@@ -83,7 +82,7 @@
             </ul>
         </nav>
 
-        <div th:if="${viewHistoryProducts==null && viewHistoryProducts>0}">
+        <div th:unless="${viewHistoryProducts==null}">
             <h2 th:text="#{products.viewsHistory}"/>
             <table class="table table-hover">
                 <thead class="thead-dark">

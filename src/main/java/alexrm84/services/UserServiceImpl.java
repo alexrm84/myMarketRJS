@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.jws.soap.SOAPBinding;
 import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.Collection;
@@ -76,6 +77,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    @Transactional
+    public User update(User user) {
+        return null;
+    }
+
+    @Override
+    @Transactional
     public User save(SystemUser systemUser) {
         if (findByPhone(systemUser.getPhone())!=null){
             throw new RuntimeException("User with phone " + systemUser.getPhone() + " is already exist");
@@ -105,6 +118,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User save(JsonObject jsonUserInfo) throws Exception {
         User user = findByPhone(jsonUserInfo.get("id").toString());
         String password = passGenerator(jsonUserInfo);

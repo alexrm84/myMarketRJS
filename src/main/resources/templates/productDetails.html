@@ -30,7 +30,7 @@
                 <h4 class="card-title" th:text="${product.title}" />
                 <p class="card-text">Бодрое описание товара.</p>
                 <h6 class="card-title" th:text="${product.price}" />
-                <a href="#" class="btn btn-primary" th:href="@{'/cart/add?id=' + ${product.getId()}}" th:text="#{products.columnNames.actions.addToCart}" />
+                <a href="#" class="btn btn-primary" th:href="@{'/cart/add?id=' + ${product.getId()}}" th:text="#{products.actions.addToCart}" />
             </div>
         </div>
 

@@ -25,7 +25,6 @@ import javax.servlet.http.HttpSession;
 public class VkController {
     private RestTemplate restTemplate;
     private UserService userService;
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public void setRestTemplate(RestTemplate restTemplate) {

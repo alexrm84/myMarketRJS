@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -47,5 +48,9 @@ public class OrderService {
 
     public List<Order> findAllByFiltering(Specification<Order> specification, Sort sort) {
         return orderRepository.findAll(specification, sort);
+    }
+
+    public Order findOneById(Long id) {
+        return orderRepository.getOne(id);
     }
 }

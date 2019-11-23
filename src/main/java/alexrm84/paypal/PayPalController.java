@@ -1,6 +1,7 @@
 package alexrm84.paypal;
 
 import alexrm84.entities.Order;
+import alexrm84.services.OrderService;
 import alexrm84.utils.Cart;
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
@@ -22,6 +23,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/paypal")
 public class PayPalController {
+    private OrderService orderService;
+
+    @Autowired
+    public void setOrderService(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
     @Value("${paypal.clientId}")
     private String clientId;
@@ -35,7 +42,7 @@ public class PayPalController {
 
     @RequestMapping("/buy")
     public String buy(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
-        Order order = (Order) session.getAttribute("order");
+        Order order = orderService.findOneById((Long) session.getAttribute("orderId"));
         try {
             Payer payer = new Payer();
             PayerInfo payerInfo = new PayerInfo();
@@ -72,6 +79,7 @@ public class PayPalController {
             while (links.hasNext()) {
                 Links link = links.next();
                 if (link.getRel().equalsIgnoreCase("approval_url")) {
+                    order.setStatus(Order.Status.PAID);
                     return "redirect:" + link.getHref();
                 }
             }

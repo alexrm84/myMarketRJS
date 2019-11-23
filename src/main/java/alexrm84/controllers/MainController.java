@@ -16,10 +16,4 @@ public class MainController {
     public String login(){
         return "login";
     }
-
-    @GetMapping("/admin")
-    @ResponseBody
-    public String admin() {
-        return "Hello";
-    }
 }

@@ -1,24 +1,29 @@
 package alexrm84.controllers;
 
+import alexrm84.configs.SecurityConfig;
 import alexrm84.entities.Order;
 import alexrm84.entities.User;
 import alexrm84.services.OrderService;
 import alexrm84.services.ProductService;
 import alexrm84.services.UserService;
 import alexrm84.utils.Cart;
+import alexrm84.utils.NewPasswordDTO;
 import alexrm84.utils.OrdersFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
+import javax.jws.soap.SOAPBinding;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -30,13 +35,15 @@ public class ProfileController {
     private ProductService productService;
     private UserService userService;
     private Cart cart;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public ProfileController(OrderService orderService, ProductService productService, UserService userService, Cart cart) {
+    public ProfileController(OrderService orderService, ProductService productService, UserService userService, Cart cart, BCryptPasswordEncoder passwordEncoder) {
         this.orderService = orderService;
         this.productService = productService;
         this.userService = userService;
         this.cart = cart;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("")
@@ -48,11 +55,45 @@ public class ProfileController {
 
     @GetMapping("/update")
     public String updateProfile(Model model, Principal principal){
+        User user = userService.findByPhone(principal.getName());
+        model.addAttribute("user", user);
+        return "editForm";
+    }
+
+    @PostMapping("/update")
+    public String updateProfile(@Valid @ModelAttribute("user") User updateUser, BindingResult bindingResult, Principal principal, HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            return "registrationForm";
+        }
+        User user = userService.findByPhone(principal.getName());
+        user.setPhone(updateUser.getPhone());
+        user.setFirstName(updateUser.getFirstName());
+        user.setLastName(updateUser.getLastName());
+        user.setEmail(updateUser.getEmail());
+        userService.save(user);
+        if (!user.getPhone().equals(principal.getName())){
+            session.invalidate();
+        }
         return "redirect:/profile";
     }
 
     @GetMapping("/newPass")
-    public String newPassword(Model model, Principal principal){
+    public String newPassword(Model model){
+        model.addAttribute("newPasswordDTO", new NewPasswordDTO());
+        return "editPassForm";
+    }
+
+    @PostMapping("/newPass")
+    public String confirmPassword(@Valid @ModelAttribute("newPasswordDTO") NewPasswordDTO newPasswordDTO,
+                                  BindingResult bindingResult, Principal principal){
+        if (bindingResult.hasErrors()) {
+            return "editPassForm";
+        }
+        User user = userService.findByPhone(principal.getName());
+        if (passwordEncoder.matches(newPasswordDTO.getOldPassword(), user.getPassword())){
+            user.setPassword(passwordEncoder.encode(newPasswordDTO.getPassword()));
+            userService.save(user);
+        }
         return "redirect:/profile";
     }
 

@@ -21,10 +21,10 @@
         <table class="table table-hover">
             <tbody>
             <tr>
-                <td th:text="Имя"/>
-                <td th:text="Фамилия"/>
-                <td th:text="Телефон"/>
-                <td th:text="E-mail"/>
+                <td th:text="#{profile.firstName}"/>
+                <td th:text="#{profile.lastName}"/>
+                <td th:text="#{profile.phone}"/>
+                <td th:text="#{profile.email}"/>
             </tr>
             <tr>
                 <td th:text="${user.firstName}"/>
@@ -41,11 +41,11 @@
 
         <form method="get" th:action="@{/profile/history}">
             <div class="form-group" style="width: 300px;">
-                <label for="dateFrom" th:text="#{enterDateFrom}"></label>
+                <label for="dateFrom" th:text="#{profile.enterDateFrom}"></label>
                 <input th:value="${dateFrom != null} ? ${dateFrom}" id="dateFrom" type="date" class="form-control" th:name="dateFrom">
             </div>
             <div class="form-group" style="width: 300px;">
-                <label for="dateBefore" th:text="#{enterDateBefore}"></label>
+                <label for="dateBefore" th:text="#{profile.enterDateBefore}"></label>
                 <input th:value="${dateBefore != null} ? ${dateBefore}" id="dateBefore" type="date" class="form-control" th:name="dateBefore">
             </div>
             <button type="submit" class="btn btn-info" style="margin-top: 10px;" th:text="#{profile.ordersHistory}" />

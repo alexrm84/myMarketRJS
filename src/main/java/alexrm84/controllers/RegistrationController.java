@@ -32,22 +32,22 @@ public class RegistrationController {
     @GetMapping("/")
     public String showMyLoginPage(Model model) {
         model.addAttribute("systemUser", new SystemUser());
-        return "registration-form";
+        return "registrationForm";
     }
 
     @PostMapping("/process")
     public String processRegistrationForm(@Valid @ModelAttribute("systemUser") SystemUser systemUser, BindingResult bindingResult, Model model) {
         String phone = systemUser.getPhone();
         if (bindingResult.hasErrors()) {
-            return "registration-form";
+            return "registrationForm";
         }
         User existing = userService.findByPhone(phone);
         if (existing != null) {
             model.addAttribute("systemUser", systemUser);
             model.addAttribute("registrationError", "User with current username is already exist");
-            return "registration-form";
+            return "registrationForm";
         }
         userService.save(systemUser);
-        return "registration-confirmation";
+        return "registrationConfirmation";
     }
 }

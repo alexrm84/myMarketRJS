@@ -20,7 +20,7 @@ public class Order implements Serializable {
     private static final long serialVersionUID = -4330813651525003249L;
 
     public enum Status{
-        CREATED, SENT, RECEIVED, CANCELED
+        CREATED, SENT, RECEIVED, CANCELED, PAID
     }
 
     @Id

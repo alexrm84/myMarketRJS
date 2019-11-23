@@ -65,7 +65,7 @@ public class OrderController {
 //            mailService.sendOrderMail(order);
 //        }
         if (params.get("paymentType").equals("paypal")){
-            session.setAttribute("order", order);
+            session.setAttribute("orderId", order.getId());
             return "redirect:/paypal/buy";
         }
         return "redirect:/shop";

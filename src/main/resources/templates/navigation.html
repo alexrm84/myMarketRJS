@@ -26,13 +26,8 @@
                 <li class="nav-item" th:classappend="${activeTab == 'Cart' ? 'active' : ''}">
                     <a id="navLinkCart" class="nav-link" th:href="@{/cart}" th:text="#{nav.cart}" />
                 </li>
-                <li sec:authorize="hasRole('ADMIN')" class="nav-item"
-                    th:classappend="${activeTab == 'AdminDashboard' ? 'active' : ''}">
-                    <a class="nav-link" th:href="@{/admin}">Admin Dashboard</a>
-                </li>
-                <li sec:authorize="hasRole('CUSTOMER')" class="nav-item"
-                    th:classappend="${activeTab == 'profile' ? 'active' : ''}">
-                    <a id="navLinkProfile" class="nav-link" th:href="@{/profile}">Личный кабинет</a>
+                <li sec:authorize="hasRole('CUSTOMER')" class="nav-item" th:classappend="${activeTab == 'Profile' ? 'active' : ''}">
+                    <a id="navLinkProfile" class="nav-link" th:href="@{/profile}" th:text="#{nav.LK}" />
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item">
                     <form id="navButtonLogout" th:action="@{/logout}" method="POST">
@@ -48,15 +43,9 @@
                                    aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
                             <button id="navButtonLogin" class="btn btn-outline-warning btn-sm" style="margin-left: 10px" type="submit" th:text="#{nav.login.submit}"></button>
                             <a id="navButtonReg" th:href="@{/register/}" class="btn btn-outline-warning" style="margin-left: 10px;" th:text="#{nav.register}"></a>
+                            <a href="https://oauth.vk.com/authorize?client_id=7199458&display=page&redirect_uri=http://localhost:8190/app/vk/callback&scope=friends&response_type=code&v=5.103" class="btn btn-outline-dark" style="margin-left: 10px;" th:text="#{nav.login.soc.VK}" />
                         </div>
                     </form>
-                </li>
-
-                <li sec:authorize="isAnonymous()" class="nav-item">
-                    <div class="input-group-prepend">
-                        Войти через:
-                        <a href="https://oauth.vk.com/authorize?client_id=7199458&display=page&redirect_uri=http://localhost:8190/app/vk/callback&scope=friends&response_type=code&v=5.103" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">ВК</a>
-                    </div>
                 </li>
 
                 <div class="dropdown" style="margin-left: 10px;">
