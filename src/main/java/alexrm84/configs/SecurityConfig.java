@@ -21,13 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-//    private AuthenticationManager authenticationManager;
     private UserService userService;
-
-//    @Autowired
-//    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
-//        this.authenticationManager = authenticationManager;
-//    }
 
     @Autowired
     public void setUserService(UserService userService) {

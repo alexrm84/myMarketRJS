@@ -11,16 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
-import javax.management.modelmbean.ModelMBeanOperationInfo;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/orders")
-//@SessionAttributes(value = "order")
 public class OrderController {
 
     private OrderService orderService;
@@ -61,9 +58,9 @@ public class OrderController {
             user = userService.save(params);
         }
         Order order = orderService.createOrder(user, params);
-//        if (user.getEmail() != null) {
-//            mailService.sendOrderMail(order);
-//        }
+        if (user.getEmail() != null) {
+            mailService.sendOrderMail(order);
+        }
         if (params.get("paymentType").equals("paypal")){
             session.setAttribute("orderId", order.getId());
             return "redirect:/paypal/buy";

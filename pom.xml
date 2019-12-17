@@ -105,9 +105,11 @@
 			<artifactId>rest-api-sdk</artifactId>
 			<version>LATEST</version>
 		</dependency>
+
 	</dependencies>
 
 	<build>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
