@@ -1,0 +1,8 @@
+{
+    "ru" : {
+        "translation": {
+            "app.page.main.text": "Базовая конфигурация проекта с использованием React + Redux + Bootstrap."
+        }
+
+    }
+}

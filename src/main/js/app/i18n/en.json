@@ -1,0 +1,8 @@
+{
+    "en" : {
+        "translation": {
+            "app.page.main.text": "Basic configuration of the project using React + Redux + Bootstrap."
+        }
+
+    }
+}
