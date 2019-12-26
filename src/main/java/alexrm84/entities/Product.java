@@ -28,7 +28,6 @@ public class Product implements Serializable {
     private BigDecimal price;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    @JsonIgnore
     private List<ProductImage> images;
 
     @ManyToOne()
@@ -46,12 +45,5 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", price=" + price +
-                '}';
-    }
+
 }

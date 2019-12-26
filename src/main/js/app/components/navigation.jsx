@@ -1,7 +1,6 @@
-import React, {Component} from 'react';
-import Home from 'app/components/pages/home'
+import React from 'react';
 
-class Navigation extends Component {
+export default class Navigation extends React.Component {
     render() {
         let menus = [
             'Home',
@@ -26,7 +25,7 @@ class Navigation extends Component {
     }
 }
 
-class Link extends Component {
+class Link extends React.Component {
     render(){
         const url = '/' + this.props.label.toLowerCase().trim();
         return <div>
@@ -35,5 +34,3 @@ class Link extends Component {
     }
 
 }
-
-export default Navigation;
