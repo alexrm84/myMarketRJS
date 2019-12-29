@@ -12,21 +12,19 @@ export default class Filter extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
-            axios.get('http://127.0.0.1:8190/app/api/v1/shop/cat')
-                .then(response => {
-                    this.setState({categories: response.data})
-                })
-                .catch(error => {
-                    console.log(error)
+        axios.get('http://127.0.0.1:8190/app/api/v1/shop/cat')
+            .then(response => {
+                this.setState({categories: response.data})
             })
-        }
+            .catch(error => {
+                console.log(error)
+        })
+    }
     handleChange(event){
         const target = event.target;
         this.props.updateData(target);
     }
     handleSubmit(event){
-        console.log("tikTak");
-        console.log(this.state.catId);
         this.props.reloadData();
         event.preventDefault();
     }
@@ -37,7 +35,7 @@ export default class Filter extends React.Component {
                 <label>
                     Категория товара
                     <select name="catId" value={this.state.catId} onChange={this.handleChange}>
-                        <option value={this.state.catId}>All</option>
+                        <option value=''>All</option>
                         {this.state.categories.map((cat) =>
                             <option key={cat.id} value={cat.id}>{cat.title}</option>
                         )}

@@ -4,6 +4,24 @@ import axios from 'axios';
 export default class Products extends React.Component {
     constructor(props) {
         super(props);
+
+        this.handleClick = this.handleClick.bind(this);
+    }
+    handleClick(event){
+        const value = event.target.value;
+        console.log(event.target.value);
+        axios.get('http://127.0.0.1:8190/app/api/v1/cart/add', {
+            params: {
+                    id: value
+                }
+            })
+            .then(response => {
+                this.setState()
+            })
+            .catch(error => {
+                console.log(error)
+        });
+        event.preventDefault();
     }
 
     render() {
@@ -17,6 +35,7 @@ export default class Products extends React.Component {
                         <th>Цена</th>
                         <th>Фото</th>
                         <th>Категория</th>
+                        <th>Действия</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,8 +44,11 @@ export default class Products extends React.Component {
                             <th>{product.id}</th>
                             <th>{product.title}</th>
                             <th>{product.price}</th>
-                            <th>{product.images[0].id}/{product.images[0].path}</th>
+                            <th>{product.image.id}/{product.image.path}</th>
                             <th>{product.category.title}</th>
+                            <th>
+                                <button value={product.id} onClick={this.handleClick} >В корзину</button>
+                            </th>
                         </tr>
                     )}
                 </tbody>

@@ -60,23 +60,23 @@ public class ProductService {
         return productRepository.findAllById(iterable);
     }
 
-    public ProductDTO convertProductToDTO(Product product){
-        ProductDTO productDTO = new ProductDTO();
-        productDTO.setId(product.getId());
-        productDTO.setTitle(product.getTitle());
-        productDTO.setPrice(product.getPrice());
-        productDTO.setCategory(product.getCategory().getTitle());
-        productDTO.setImagePath(product.getImages().get(0).getPath());
-        return productDTO;
-    }
-
-    public Product convertDTOToProduct(ProductDTO productDTO){
-        Product product = new Product();
-        product.setId(productDTO.getId());
-        product.setTitle(productDTO.getTitle());
-        product.setPrice(productDTO.getPrice());
-        product.setCategory(productRepository.findById(productDTO.getId()).get().getCategory());
-        product.setImages(productRepository.findById(productDTO.getId()).get().getImages());
-        return product;
-    }
+//    public ProductDTO convertProductToDTO(Product product){
+//        ProductDTO productDTO = new ProductDTO();
+//        productDTO.setId(product.getId());
+//        productDTO.setTitle(product.getTitle());
+//        productDTO.setPrice(product.getPrice());
+//        productDTO.setCategory(product.getCategory().getTitle());
+//        productDTO.setImagePath(product.getImage().getPath());
+//        return productDTO;
+//    }
+//
+//    public Product convertDTOToProduct(ProductDTO productDTO){
+//        Product product = new Product();
+//        product.setId(productDTO.getId());
+//        product.setTitle(productDTO.getTitle());
+//        product.setPrice(productDTO.getPrice());
+//        product.setCategory(productRepository.findById(productDTO.getId()).get().getCategory());
+//        product.setImage(productRepository.findById(productDTO.getId()).getImage());
+//        return product;
+//    }
 }

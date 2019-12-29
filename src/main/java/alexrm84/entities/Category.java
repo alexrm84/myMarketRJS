@@ -24,9 +24,9 @@ public class Category implements Serializable {
     @Column(name = "title")
     private String title;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<Product> products;
+//    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    private List<Product> products;
 
     @Override
     public boolean equals(Object o) {

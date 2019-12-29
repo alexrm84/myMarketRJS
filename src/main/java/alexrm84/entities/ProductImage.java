@@ -19,10 +19,10 @@ public class ProductImage implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    @JsonIgnore
-    private Product product;
+//    @ManyToOne
+//    @JoinColumn(name = "product_id")
+//    @JsonIgnore
+//    private Product product;
 
     @Column(name = "path")
     private String path;

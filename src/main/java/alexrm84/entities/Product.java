@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.rmi.dgc.Lease;
 import java.util.List;
 
 @Entity
@@ -27,8 +28,13 @@ public class Product implements Serializable {
     @Column(name = "price")
     private BigDecimal price;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    private List<ProductImage> images;
+//    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    private List<ProductImage> images;
+
+    @OneToOne
+    @JoinColumn(name = "image_id")
+    private ProductImage image;
 
     @ManyToOne()
     @JoinColumn(name = "category_id")

@@ -1,5 +1,6 @@
 package alexrm84.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,6 +26,7 @@ public class OrderItem implements Serializable {
 
     @ManyToOne()
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     private Order order;
 
     @Column(name = "quantity")

@@ -103,8 +103,9 @@
 		<dependency>
 			<groupId>com.paypal.sdk</groupId>
 			<artifactId>rest-api-sdk</artifactId>
-			<version>LATEST</version>
+			<version>1.14.0</version>
 		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/com.github.eirslett/frontend-maven-plugin -->
 		<dependency>

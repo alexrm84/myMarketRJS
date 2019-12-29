@@ -50,34 +50,62 @@ INSERT INTO categories (title) VALUES
 ('phones'),
 ('headphones');
 
+DROP TABLE IF EXISTS products_images;
+CREATE TABLE products_images (
+    id bigserial PRIMARY KEY,
+    path varchar(255)
+);
+
+INSERT INTO products_images (path) VALUES
+('img_1.jpg'),
+('img_1.jpg'),
+('img_1.jpg'),
+('img_1.jpg'),
+('img_1.jpg'),
+('img_1.jpg'),
+('img_1.jpg'),
+('img_1.jpg'),
+('img_1.jpg'),
+('img_1.jpg'),
+('img_1.jpg'),
+('img_1.jpg'),
+('img_1.jpg'),
+('img_1.jpg'),
+('img_1.jpg'),
+('img_1.jpg'),
+('img_1.jpg'),
+('img_1.jpg');
+
 DROP TABLE IF EXISTS products;
 CREATE TABLE products (
     id bigserial,
     title varchar(255) NOT NULL,
     price numeric(8,2) NOT NULL,
+    image_id bigint NOT NULL,
     category_id bigint NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (category_id) REFERENCES categories (id)
+    FOREIGN KEY (category_id) REFERENCES categories (id),
+    FOREIGN KEY (image_id) REFERENCES products_images (id)
 );
 
-INSERT INTO products (title, price, category_id) VALUES
-('Смартфон Samsung Galaxy A50', 15800.0, 1),
-('Смартфон Samsung Galaxy A10', 8600.0, 1),
-('Смартфон Samsung Galaxy A30', 14800.0, 1),
-('Смартфон Apple iPhone Xr', 55000.0, 1),
-('Смартфон Apple iPhone 7', 30000.0, 1),
-('Смартфон Apple iPhone SE', 21000.0, 1),
-('Смартфон Apple iPhone X', 64000.0, 1),
-('Смартфон HUAWEI P30 lite', 20000.0, 1),
-('Смартфон HUAWEI P30', 40000.0, 1),
-('Смартфон HUAWEI Y7', 10000.0, 1),
-('Смартфон HUAWEI Nova 3', 22000.0, 1),
-('Смартфон Sony Xperia XZ2', 35000.0, 1),
-('Смартфон Sony Xperia XA2 Ultra', 10000.0, 1),
-('Смартфон Xiaomi Mi 9T', 20000.0, 1),
-('Смартфон Xiaomi Redmi Note 7', 14000.0, 1),
-('Наушники JBL T450BT', 2000.0, 2),
-('Наушники Sony WH-1000XM3', 28000.0, 2);
+INSERT INTO products (title, price, image_id, category_id) VALUES
+('Смартфон Samsung Galaxy A50', 15800.0, 1, 1),
+('Смартфон Samsung Galaxy A10', 8600.0, 2, 1),
+('Смартфон Samsung Galaxy A30', 14800.0, 3, 1),
+('Смартфон Apple iPhone Xr', 55000.0, 4, 1),
+('Смартфон Apple iPhone 7', 30000.0, 5, 1),
+('Смартфон Apple iPhone SE', 21000.0, 6, 1),
+('Смартфон Apple iPhone X', 64000.0, 7, 1),
+('Смартфон HUAWEI P30 lite', 20000.0, 8, 1),
+('Смартфон HUAWEI P30', 40000.0, 9, 1),
+('Смартфон HUAWEI Y7', 10000.0, 10, 1),
+('Смартфон HUAWEI Nova 3', 22000.0, 11, 1),
+('Смартфон Sony Xperia XZ2', 35000.0, 12, 1),
+('Смартфон Sony Xperia XA2 Ultra', 10000.0, 13, 1),
+('Смартфон Xiaomi Mi 9T', 20000.0, 14, 1),
+('Смартфон Xiaomi Redmi Note 7', 14000.0, 15, 1),
+('Наушники JBL T450BT', 2000.0, 16, 2),
+('Наушники Sony WH-1000XM3', 28000.0, 17, 2);
 
 DROP TABLE IF EXISTS orders;
 CREATE TABLE orders (
@@ -104,28 +132,3 @@ CREATE  TABLE order_items (
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
-DROP TABLE IF EXISTS products_images;
-CREATE TABLE products_images (
-    id bigserial PRIMARY KEY,
-    product_id bigint, path varchar(255),
-    FOREIGN KEY (product_id) REFERENCES products(id));
-
-INSERT INTO products_images (product_id, path) VALUES
-(1, 'img_1.jpg'),
-(2, 'img_1.jpg'),
-(3, 'img_1.jpg'),
-(4, 'img_1.jpg'),
-(5, 'img_1.jpg'),
-(6, 'img_1.jpg'),
-(7, 'img_1.jpg'),
-(8, 'img_1.jpg'),
-(9, 'img_1.jpg'),
-(10, 'img_1.jpg'),
-(11, 'img_1.jpg'),
-(12, 'img_1.jpg'),
-(12, 'img_1.jpg'),
-(13, 'img_1.jpg'),
-(14, 'img_1.jpg'),
-(15, 'img_1.jpg'),
-(16, 'img_1.jpg'),
-(17, 'img_1.jpg');
